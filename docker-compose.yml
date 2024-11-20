@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672" # RabbitMQ AMQP port
+      - "15672:15672" # RabbitMQ management UI
+    environment:
+     RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+     RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+
+  send:
+    build:
+      context: https://github.com/your-org/send-project.git # Clone and build Send from Git
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+    environment:
+      - RABBITMQ_HOST= ${RABBITMQ_HOST}
+      - RABBITMQ_USER=${RABBITMQ_USER}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+
+  receive:
+    build:
+      context: https://github.com/your-org/receive-project.git # Clone and build Receive from Git
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+    environment:
+       - RABBITMQ_HOST=${RABBITMQ_HOST}
+       - RABBITMQ_USER=${RABBITMQ_USER}
+       - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
