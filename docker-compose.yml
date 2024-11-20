@@ -23,7 +23,7 @@ services:
 
   receive:
     build:
-      context: https://github.com/your-org/receive-project.git # Clone and build Receive from Git
+      context: https://github.com/JmarklundN/Receive.git # Clone and build Receive from Git
       dockerfile: Dockerfile
     depends_on:
       - rabbitmq
