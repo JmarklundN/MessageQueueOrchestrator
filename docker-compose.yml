@@ -12,7 +12,7 @@ services:
 
   send:
     build:
-      context: https://github.com/your-org/send-project.git # Clone and build Send from Git
+      context: https://github.com/JmarklundN/Send.git # Clone and build Send from Git
       dockerfile: Dockerfile
     depends_on:
       - rabbitmq
